@@ -12,7 +12,7 @@ class RecipeApi {
     static let BASE_URL = "https://dummyjson.com/recipes"
     
     static func getRecipeList() async -> [RecipeDto] {
-        guard let url = URL(string: BASE_URL) else {
+        guard let url = URL(string: "\(BASE_URL)?limit=0") else {
             print("Invalid URL")
             return []
         }
