@@ -27,6 +27,22 @@ class RecipeApi {
         }
     }
     
+    static func searchRecipesByName(_ query: String) async -> [RecipeDto] {
+        guard let url = URL(string: "\(BASE_URL)/search?limit=0&q=\(query)") else {
+            print("Invalid URL")
+            return []
+        }
+        
+        do {
+            let (data, _) = try await URLSession.shared.data(from: url)
+            
+            return try JSONDecoder().decode(RecipeListDto.self, from: data).recipes
+        } catch {
+            print("Invalid data")
+            return []
+        }
+    }
+    
     static func getRecipeById(_ id: Int) async -> RecipeDto? {
         guard let url = URL(string: "\(BASE_URL)/\(id)") else {
             print("Invalid URL")
