@@ -75,5 +75,13 @@ class ListViewController: UIViewController, UITableViewDataSource, UISearchBarDe
             }
         }
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let destination = segue.destination as! DetailViewController
+        let indexPath = tableView.indexPathForSelectedRow!
+        let recipe = filteredRecipeList[indexPath.row]
+        destination.recipe = recipe
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
 }
 
